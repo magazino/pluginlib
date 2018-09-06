@@ -70,53 +70,53 @@ TEST(PluginlibTest, workingPlugin) {
 }
 
 TEST(PluginlibTest, createUnmanagedInstanceAndUnloadLibrary) {
-  ROS_INFO("Making the ClassLoader...");
+  CONSOLE_BRIDGE_logInform("Making the ClassLoader...");
   pluginlib::ClassLoader<test_base::Fubar> pl("pluginlib", "test_base::Fubar");
 
-  ROS_INFO("Instantiating plugin...");
+  CONSOLE_BRIDGE_logInform("Instantiating plugin...");
   test_base::Fubar * inst = pl.createUnmanagedInstance("pluginlib/foo");
 
-  ROS_INFO("Deleting plugin...");
+  CONSOLE_BRIDGE_logInform("Deleting plugin...");
   delete inst;
 
-  ROS_INFO("Checking if plugin is loaded with isClassLoaded...");
+  CONSOLE_BRIDGE_logInform("Checking if plugin is loaded with isClassLoaded...");
   if (pl.isClassLoaded("pluginlib/foo")) {
-    ROS_INFO("Class is loaded");
+    CONSOLE_BRIDGE_logInform("Class is loaded");
   } else {
     FAIL() << "Library containing class should be loaded but isn't.";
   }
-  ROS_INFO("Trying to unload class with unloadLibraryForClass...");
+  CONSOLE_BRIDGE_logInform("Trying to unload class with unloadLibraryForClass...");
   try {
     pl.unloadLibraryForClass("pluginlib/foo");
   } catch (pluginlib::PluginlibException & e) {
     FAIL() << "Could not unload library when I should be able to.";
   }
-  ROS_INFO("Done.");
+  CONSOLE_BRIDGE_logInform("Done.");
 }
 
 TEST(PluginlibTest, createManagedInstanceAndUnloadLibrary) {
-  ROS_INFO("Making the ClassLoader...");
+  CONSOLE_BRIDGE_logInform("Making the ClassLoader...");
   pluginlib::ClassLoader<test_base::Fubar> pl("pluginlib", "test_base::Fubar");
 
-  ROS_INFO("Instantiating plugin...");
+  CONSOLE_BRIDGE_logInform("Instantiating plugin...");
   {
     boost::shared_ptr<test_base::Fubar> inst = pl.createInstance("pluginlib/foo");
   }
 
-  ROS_INFO("Checking if plugin is loaded with isClassLoaded...");
+  CONSOLE_BRIDGE_logInform("Checking if plugin is loaded with isClassLoaded...");
   if (pl.isClassLoaded("pluginlib/foo")) {
-    ROS_INFO("Class is loaded");
+    CONSOLE_BRIDGE_logInform("Class is loaded");
   } else {
     FAIL() << "Library containing class should be loaded but isn't.";
   }
 
-  ROS_INFO("Trying to unload class with unloadLibraryForClass...");
+  CONSOLE_BRIDGE_logInform("Trying to unload class with unloadLibraryForClass...");
   try {
     pl.unloadLibraryForClass("pluginlib/foo");
   } catch (pluginlib::PluginlibException & e) {
     FAIL() << "Could not unload library when I should be able to.";
   }
-  ROS_INFO("Done.");
+  CONSOLE_BRIDGE_logInform("Done.");
 }
 
 TEST(PluginlibTest, brokenXML) {
